@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <title>Joshua · UI/UX Designer & Frontend Developer</title>
+
+    <!-- Google Font: Satoshi -->
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2,3,4,5,6,7,8,9&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind via CDN (development only – use CLI or PostCSS for production) -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+
+    <!-- Lucide Icons – stable version with all social icons -->
+    <script src="https://unpkg.com/lucide@0.300.0">
+    </script>
+
+    <style>
+        /* ─── CUSTOM PROPERTIES ─── */
+        :root {
+            --teal: #0F3544;
+            --teal-hover: #0A2A36;
+            --teal-secondary: #315765;
+            --teal-accent: #4F7581;
+            --teal-light: #DCE8EC;
+            --bg: #FAFBFC;
+            --card: #FFFFFF;
+            --text-primary: #1B1B1B;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --radius: 24px;
+            --shadow: 0 20px 60px rgba(15, 53, 68, 0.08);
+            --shadow-hover: 0 30px 80px rgba(15, 53, 68, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            position: relative;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--teal);
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--teal-hover);
+        }
+
+        /* ─── UTILITY ─── */
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .heading-xl {
+            font-size: clamp(40px, 8vw, 84px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            word-wrap: break-word;
+        }
+
+        .heading-lg {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            word-wrap: break-word;
+        }
+
+        .heading-md {
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .body-text {
+            font-size: clamp(15px, 1.1vw, 18px);
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        /* ─── GLASS ─── */
+        .glass {
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .glass-dark {
+            background: rgba(15, 53, 68, 0.75);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--teal);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(15, 53, 68, 0.25);
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            background: var(--teal-hover);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(15, 53, 68, 0.35);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--text-primary);
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1.5px solid var(--border);
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--teal);
+            background: rgba(15, 53, 68, 0.04);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(15, 53, 68, 0.08);
+        }
+
+        .btn-outline-light {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            text-decoration: none;
+            background: transparent;
+            white-space: nowrap;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-4px);
+        }
+
+        /* ─── CARDS ─── */
+        .card-premium {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .card-premium:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ─── ICONS ─── */
+        [data-lucide] {
+            display: inline-block;
+            vertical-align: middle;
+            width: 1.2em;
+            height: 1.2em;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+
+        .icon-lg {
+            width: 1.6em;
+            height: 1.6em;
+        }
+
+        .icon-xl {
+            width: 2em;
+            height: 2em;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes float-slow {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-slow {
+            animation: float-slow 8s ease-in-out infinite;
+        }
+        .animate-float-reverse {
+            animation: float 6s ease-in-out infinite reverse;
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        /* ─── REVEAL ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ─── NAVBAR ─── */
+        .navbar {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            width: calc(100% - 32px);
+            max-width: 1200px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px) saturate(1.3);
+            -webkit-backdrop-filter: blur(12px) saturate(1.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(24px) saturate(1.5);
+            -webkit-backdrop-filter: blur(24px) saturate(1.5);
+            box-shadow: 0 8px 40px rgba(15, 53, 68, 0.08);
+            top: 10px;
+            padding: 8px 20px;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 4px 0;
+        }
+
+        .nav-link:hover {
+            color: var(--teal);
+        }
+
+        .nav-link.active {
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--teal);
+            border-radius: 999px;
+        }
+
+        /* ─── HAMBURGER ─── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 1000;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 999px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: center;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ─── MOBILE NAV ─── */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 998;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 40px 20px;
+        }
+
+        .mobile-nav.open {
+            transform: translateY(0);
+        }
+
+        .mobile-nav a {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--teal);
+        }
+
+        /* ─── HERO BADGE ─── */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 53, 68, 0.06);
+            padding: 6px 16px 6px 10px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--teal);
+            border: 1px solid rgba(15, 53, 68, 0.08);
+            white-space: nowrap;
+        }
+
+        /* ─── FLOATING BADGES ─── */
+        .floating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-primary);
+            box-shadow: 0 8px 32px rgba(15, 53, 68, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .floating-badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #22c55e;
+            display: inline-block;
+            animation: pulse-glow 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        /* ─── TIMELINE ─── */
+        .timeline-item {
+            position: relative;
+            padding-left: 32px;
+            padding-bottom: 48px;
+            border-left: 2px solid var(--border);
+        }
+
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+            padding-bottom: 0;
+        }
+
+        .timeline-item .dot {
+            position: absolute;
+            left: -9px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--teal);
+            border: 4px solid var(--bg);
+            box-shadow: 0 0 0 4px var(--teal-light);
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .timeline-item .line-progress {
+            position: absolute;
+            left: -1px;
+            top: 0;
+            width: 2px;
+            height: 0;
+            background: var(--teal);
+            transition: height 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .timeline-item .line-progress.visible {
+            height: 100%;
+        }
+
+        /* ─── SKILL CIRCLE ─── */
+        .skill-circle {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            max-width: 100px;
+            max-height: 100px;
+            flex-shrink: 0;
+        }
+
+        .skill-circle svg {
+            transform: rotate(-90deg);
+            width: 100px;
+            height: 100px;
+        }
+
+        .skill-circle .bg-circle {
+            fill: none;
+            stroke: var(--border);
+            stroke-width: 5;
+        }
+
+        .skill-circle .progress-circle {
+            fill: none;
+            stroke: var(--teal);
+            stroke-width: 5;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .skill-circle .percentage {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--teal);
+        }
+
+        /* ─── TESTIMONIAL CARDS ─── */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* ─── SCROLL PROGRESS ─── */
+        .scroll-progress {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--card);
+            box-shadow: 0 8px 32px rgba(15, 53, 68, 0.12);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        .scroll-progress.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .scroll-progress:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 40px rgba(15, 53, 68, 0.18);
+        }
+
+        .scroll-progress [data-lucide] {
+            width: 22px;
+            height: 22px;
+            color: var(--teal);
+        }
+
+        /* ─── CUSTOM CURSOR ─── */
+        @media (min-width: 1024px) {
+            .custom-cursor {
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                width: 8px;
+                height: 8px;
+                background: var(--teal);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+                mix-blend-mode: difference;
+            }
+            .custom-cursor.hover {
+                width: 40px;
+                height: 40px;
+                background: rgba(15, 53, 68, 0.15);
+                mix-blend-mode: normal;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .custom-cursor {
+                display: none;
+            }
+        }
+
+        /* ─── IMAGE UTILITY ─── */
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* ─── HERO BUTTON SPACING ─── */
+        .hero-actions {
+            margin-bottom: 2rem;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .navbar .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .navbar .btn-primary {
+                display: none;
+            }
+            .section-padding {
+                padding: 60px 0;
+            }
+            .container-custom {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 8px 16px;
+                top: 12px;
+                width: calc(100% - 20px);
+                border-radius: 40px;
+            }
+            .navbar.scrolled {
+                padding: 6px 16px;
+                top: 8px;
+            }
+            .heading-xl {
+                font-size: clamp(32px, 10vw, 48px);
+            }
+            .heading-lg {
+                font-size: clamp(26px, 7vw, 36px);
+            }
+            .section-padding {
+                padding: 48px 0;
+            }
+            .floating-badge {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .hero-badge {
+                font-size: 12px;
+                padding: 4px 12px 4px 8px;
+            }
+            .btn-primary,
+            .btn-secondary {
+                padding: 12px 22px;
+                font-size: 14px;
+            }
+            .timeline-item {
+                padding-left: 24px;
+                padding-bottom: 36px;
+            }
+            .mobile-nav a {
+                font-size: 20px;
+            }
+            .skill-circle {
+                width: 80px;
+                height: 80px;
+                max-width: 80px;
+                max-height: 80px;
+            }
+            .skill-circle svg {
+                width: 80px;
+                height: 80px;
+            }
+            .skill-circle .percentage {
+                font-size: 14px;
+            }
+            .testimonial-card {
+                padding: 20px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container-custom {
+                padding: 0 14px;
+            }
+            .navbar {
+                padding: 6px 12px;
+                top: 10px;
+                width: calc(100% - 16px);
+            }
+            .navbar .text-xl {
+                font-size: 18px !important;
+            }
+            .heading-xl {
+                font-size: clamp(28px, 12vw, 38px);
+            }
+            .heading-lg {
+                font-size: clamp(22px, 7vw, 30px);
+            }
+            .section-padding {
+                padding: 36px 0;
+            }
+            .btn-primary,
+            .btn-secondary {
+                padding: 10px 18px;
+                font-size: 13px;
+                gap: 6px;
+            }
+            .btn-primary [data-lucide],
+            .btn-secondary [data-lucide] {
+                width: 1em;
+                height: 1em;
+            }
+            .floating-badge {
+                font-size: 9px;
+                padding: 3px 8px;
+                gap: 4px;
+            }
+            .floating-badge [data-lucide] {
+                width: 0.9em;
+                height: 0.9em;
+            }
+            .floating-badge .dot {
+                width: 5px;
+                height: 5px;
+            }
+            .hero-badge {
+                font-size: 11px;
+                padding: 4px 10px 4px 6px;
+                gap: 4px;
+            }
+            .hero-badge [data-lucide] {
+                width: 1em;
+                height: 1em;
+            }
+            .body-text {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            .mobile-nav a {
+                font-size: 18px;
+            }
+            .mobile-nav {
+                gap: 18px;
+                padding: 30px 16px;
+            }
+            .skill-circle {
+                width: 68px;
+                height: 68px;
+                max-width: 68px;
+                max-height: 68px;
+            }
+            .skill-circle svg {
+                width: 68px;
+                height: 68px;
+            }
+            .skill-circle .percentage {
+                font-size: 12px;
+            }
+            .card-premium .p-6 {
+                padding: 16px !important;
+            }
+            .card-premium .p-8 {
+                padding: 20px !important;
+            }
+            .timeline-item {
+                padding-left: 20px;
+                padding-bottom: 28px;
+            }
+            .timeline-item .dot {
+                width: 12px;
+                height: 12px;
+                left: -7px;
+                border-width: 3px;
+                box-shadow: 0 0 0 3px var(--teal-light);
+            }
+            .testimonial-card {
+                padding: 16px 14px;
+            }
+            .scroll-progress {
+                width: 38px;
+                height: 38px;
+                bottom: 14px;
+                right: 14px;
+            }
+            .scroll-progress [data-lucide] {
+                width: 18px;
+                height: 18px;
+            }
+            .hero-actions {
+                margin-bottom: 1.5rem;
+            }
+            .floating-badge.hide-mobile {
+                display: none !important;
+            }
+        }
+
+        /* ─── HIDE FLOATING BADGES ON MOBILE ─── */
+        @media (max-width: 600px) {
+            .floating-badge {
+                display: none !important;
+            }
+        }
+
+        /* ─── FIX FOR OVERFLOW ─── */
+        img,
+        video,
+        iframe {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .no-overflow {
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        /* ─── GRID FIX ─── */
+        .grid-cols-7 {
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        @media (max-width: 1024px) {
+            .grid-cols-7 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid-cols-7 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .grid-cols-7 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── CUSTOM CURSOR ─── -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- ─── SCROLL PROGRESS ─── -->
+    <div class="scroll-progress" id="scrollProgress" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i data-lucide="chevron-up"></i>
+    </div>
+
+    <!-- ─── NAVBAR ─── -->
+    <nav class="navbar" id="navbar">
+        <div class="flex items-center justify-between w-full">
+            <a href="#" class="text-lg sm:text-xl font-bold tracking-tight text-[#1B1B1B] flex items-center gap-2 flex-shrink-0">
+                <i data-lucide="sparkle" class="text-xl sm:text-2xl"></i>
+                <span>Joshua</span>
+            </a>
+
+            <div class="nav-links flex items-center gap-6 lg:gap-8">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ─── MOBILE NAV ─── -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#testimonials" class="nav-link">Testimonials</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </div>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <main>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- HERO                                    -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="home" class="min-h-screen flex items-center pt-16 sm:pt-20 relative overflow-hidden">
+            <div class="absolute top-[-20%] right-[-30%] w-[300px] sm:w-[500px] lg:w-[600px] h-[300px] sm:h-[500px] lg:h-[600px] rounded-full bg-[#0F3544]/10 blur-[80px] sm:blur-[120px] animate-float-slow pointer-events-none"></div>
+            <div class="absolute bottom-[-10%] left-[-30%] w-[250px] sm:w-[400px] lg:w-[500px] h-[250px] sm:h-[400px] lg:h-[500px] rounded-full bg-[#4F7581]/10 blur-[80px] sm:blur-[100px] animate-float-reverse pointer-events-none"></div>
+
+            <div class="container-custom relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+                    <div class="space-y-6 sm:space-y-8">
+                        <div class="hero-badge animate-float inline-flex">
+                            <i data-lucide="hand" class="text-base sm:text-xl"></i>
+                            Hello, I'm
+                        </div>
+
+                        <h1 class="heading-xl">
+                            I'm <span style="color:var(--teal);">Joshua</span>,
+                            <br />
+                            <span class="text-[#1B1B1B]">UI/UX Designer &</span>
+                            <br />
+                            <span class="text-[#1B1B1B]">Frontend Developer</span>
+                        </h1>
+
+                        <p class="body-text max-w-lg">
+                            I craft beautiful digital experiences and build modern web applications that combine creativity with functionality. Passionate about solving real problems through intuitive design and clean code.
+                        </p>
+
+                        <div class="flex flex-wrap gap-3 sm:gap-4 hero-actions">
+                            <a href="#portfolio" class="btn-primary">
+                                View Portfolio
+                                <i data-lucide="arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative flex justify-center items-center">
+                        <div class="absolute w-[250px] sm:w-[350px] lg:w-[420px] h-[250px] sm:h-[350px] lg:h-[420px] rounded-full bg-[#0F3544]/20 blur-[60px] sm:blur-[80px] animate-pulse-glow pointer-events-none"></div>
+
+                        <div class="relative w-[220px] h-[280px] sm:w-[300px] sm:h-[380px] lg:w-[380px] lg:h-[460px] rounded-[28px] sm:rounded-[40px] overflow-hidden shadow-2xl border-4 border-white/50 animate-float"
+                        style="background: linear-gradient(145deg, #DCE8EC 0%, #B5C9D0 100%);">
+                            <img src="me.png" alt="Joshua — UI/UX Designer & Frontend Developer" class="profile-img" />
+                            <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#0F3544]/30 to-transparent"></div>
+                        </div>
+
+                        <!-- Floating badges - hidden on mobile -->
+                        <div class="floating-badge animate-float-slow absolute top-[5%] right-[-2%] sm:right-[-5%]">
+                            <span class="dot"></span>
+                            Available
+                        </div>
+                        <div class="floating-badge animate-float-reverse absolute top-[30%] left-[-8%] sm:left-[-12%]" style="animation-delay:0.5s;">
+                            <i data-lucide="monitor" class="mr-1"></i> React
+                        </div>
+                        <div class="floating-badge animate-float-slow absolute bottom-[20%] right-[-4%] sm:right-[-8%]" style="animation-delay:1s;">
+                            <i data-lucide="palette" class="mr-1"></i> UI/UX
+                        </div>
+                        <div class="floating-badge animate-float-reverse absolute bottom-[5%] left-[-6%] sm:left-[-8%]" style="animation-delay:0.3s;">
+                            <i data-lucide="zap" class="mr-1"></i> Frontend
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- SERVICES                               -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="services" class="section-padding relative overflow-hidden" style="background:#0A1620;">
+            <div class="absolute inset-0 pointer-events-none opacity-10">
+                <svg class="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="none">
+                    <path d="M0,200 Q300,50 600,200 T1200,150 L1200,800 L0,800 Z" fill="#4F7581" />
+                    <path d="M0,400 Q400,250 800,400 T1200,350 L1200,800 L0,800 Z" fill="#315765" opacity="0.6" />
+                </svg>
+            </div>
+
+            <div class="container-custom relative z-10">
+                <div class="text-center mb-12 sm:mb-16">
+                    <span class="text-[#4F7581] font-medium text-xs sm:text-sm uppercase tracking-[0.2em]">What I Do</span>
+                    <h2 class="heading-lg text-white mt-3 sm:mt-4">My Services</h2>
+                    <p class="text-[#9BB5C0] body-text max-w-xl mx-auto mt-3 sm:mt-4">
+                        Transforming ideas into exceptional digital experiences
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+                    <div class="card-premium bg-[#122A36] border-[#1E3E4D] hover:border-[#4F7581] group">
+                        <div class="p-6 sm:p-8 space-y-4 sm:space-y-5">
+                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0F3544]/40 flex items-center justify-center text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                                <i data-lucide="palette" class="icon-xl text-white"></i>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white">UI/UX Design</h3>
+                            <p class="text-[#9BB5C0] text-sm leading-relaxed">
+                                User-centered design with pixel-perfect interfaces. From wireframes to high-fidelity prototypes that delight users.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card-premium bg-[#122A36] border-[#1E3E4D] hover:border-[#4F7581] group">
+                        <div class="p-6 sm:p-8 space-y-4 sm:space-y-5">
+                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0F3544]/40 flex items-center justify-center text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                                <i data-lucide="monitor" class="icon-xl text-white"></i>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white">Frontend Development</h3>
+                            <p class="text-[#9BB5C0] text-sm leading-relaxed">
+                                Clean, performant, and accessible code. Building responsive web applications with React, Next.js, and Tailwind CSS.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card-premium bg-[#122A36] border-[#1E3E4D] hover:border-[#4F7581] group sm:col-span-2 lg:col-span-1">
+                        <div class="p-6 sm:p-8 space-y-4 sm:space-y-5">
+                            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0F3544]/40 flex items-center justify-center text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                                <i data-lucide="box" class="icon-xl text-white"></i>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-white">Product Design</h3>
+                            <p class="text-[#9BB5C0] text-sm leading-relaxed">
+                                End-to-end product design from research to launch. Creating cohesive design systems and scalable product experiences.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- EXPERIENCE                             -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="experience" class="section-padding bg-white">
+            <div class="container-custom">
+                <div class="text-center mb-12 sm:mb-16">
+                    <span class="text-[#4F7581] font-medium text-xs sm:text-sm uppercase tracking-[0.2em]">Career</span>
+                    <h2 class="heading-lg text-[#1B1B1B] mt-3 sm:mt-4">My Experience</h2>
+                    <p class="body-text max-w-xl mx-auto mt-3 sm:mt-4">
+                        A journey of growth, design, and engineering excellence
+                    </p>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+
+                    <div class="timeline-item reveal">
+                        <div class="dot"></div>
+                        <div class="line-progress" id="tl1"></div>
+                        <div class="space-y-1 sm:space-y-2">
+                            <span class="text-sm font-medium text-[#4F7581]">2023 – Present</span>
+                            <h3 class="text-lg sm:text-xl font-bold">Senior UI/UX Designer</h3>
+                            <p class="text-[#315765] font-medium">Design Studio Co.</p>
+                            <p class="body-text text-sm">
+                                Leading design for enterprise products. Building design systems, mentoring junior designers, and driving user-centric innovation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal">
+                        <div class="dot"></div>
+                        <div class="line-progress" id="tl2"></div>
+                        <div class="space-y-1 sm:space-y-2">
+                            <span class="text-sm font-medium text-[#4F7581]">2021 – 2023</span>
+                            <h3 class="text-lg sm:text-xl font-bold">Frontend Developer</h3>
+                            <p class="text-[#315765] font-medium">TechVibe Agency</p>
+                            <p class="body-text text-sm">
+                                Built responsive web applications using React, Next.js, and Tailwind. Collaborated with designers to implement pixel-perfect interfaces.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item reveal">
+                        <div class="dot"></div>
+                        <div class="line-progress" id="tl3"></div>
+                        <div class="space-y-1 sm:space-y-2">
+                            <span class="text-sm font-medium text-[#4F7581]">2019 – 2021</span>
+                            <h3 class="text-lg sm:text-xl font-bold">Product Designer</h3>
+                            <p class="text-[#315765] font-medium">Creative Labs</p>
+                            <p class="body-text text-sm">
+                                Designed and shipped 10+ products from concept to launch. Conducted user research, usability testing, and iterative prototyping.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- ABOUT                                  -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="about" class="section-padding bg-[#FAFBFC]">
+            <div class="container-custom">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+                    <div class="reveal-left order-2 lg:order-1">
+                        <div class="rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-2xl border-4 border-white/60 relative aspect-[4/5] max-w-xs sm:max-w-sm lg:max-w-none mx-auto lg:mx-0"
+                        style="background: linear-gradient(145deg, #DCE8EC 0%, #B5C9D0 100%);">
+                            <img src="me.png" alt="Joshua — UI/UX Designer & Frontend Developer" class="profile-img" />
+                            <div class="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#0F3544]/20 to-transparent"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 sm:space-y-8 reveal-right order-1 lg:order-2">
+                        <div>
+                            <span class="text-[#4F7581] font-medium text-xs sm:text-sm uppercase tracking-[0.2em]">About Me</span>
+                            <h2 class="heading-lg text-[#1B1B1B] mt-2 sm:mt-3">Why Work With Me?</h2>
+                        </div>
+
+                        <p class="body-text text-sm sm:text-base leading-relaxed">
+                            I'm a multidisciplinary designer and developer with a passion for creating digital experiences that are both beautiful and functional. With 3+ years of hands-on experience, I've helped startups and enterprises bring their visions to life through thoughtful design and clean code.
+                        </p>
+                        <p class="body-text text-sm sm:text-base leading-relaxed">
+                            My approach combines user-centered design principles with modern development practices, ensuring every project is not only visually stunning but also performant and accessible.
+                        </p>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-2 sm:pt-4">
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-bold text-[#0F3544]">25+</div>
+                                <div class="text-xs sm:text-sm text-[#6B7280]">Projects</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-bold text-[#0F3544]">3+</div>
+                                <div class="text-xs sm:text-sm text-[#6B7280]">Years Experience</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-bold text-[#0F3544]">15+</div>
+                                <div class="text-xs sm:text-sm text-[#6B7280]">Happy Clients</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-bold text-[#0F3544]">100%</div>
+                                <div class="text-xs sm:text-sm text-[#6B7280]">Commitment</div>
+                            </div>
+                        </div>
+
+                        <a href="#contact" class="btn-primary inline-flex mt-2 sm:mt-4">
+                            Let's Talk
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- PORTFOLIO                              -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="portfolio" class="section-padding bg-white">
+            <div class="container-custom">
+                <div class="text-center mb-10 sm:mb-12">
+                    <span class="text-[#4F7581] font-medium text-xs sm:text-sm uppercase tracking-[0.2em]">Work</span>
+                    <h2 class="heading-lg text-[#1B1B1B] mt-3 sm:mt-4">Featured Projects</h2>
+                    <p class="body-text max-w-xl mx-auto mt-3 sm:mt-4">
+                        A selection of my best work across design and development
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8" id="portfolioGrid">
+
+                    <!-- Flanorx -->
+                    <div class="card-premium group">
+                        <div class="aspect-[16/10] bg-[#DCE8EC] overflow-hidden relative">
+                            <img src="flanorx.jpeg" alt="Flanorx — On-Demand Fuel Delivery" class="project-img" />
+                            <div class="absolute inset-0 bg-[#0F3544]/0 group-hover:bg-[#0F3544]/20 transition-colors duration-500"></div>
+                        </div>
+                        <div class="p-5 sm:p-6 space-y-2 sm:space-y-3">
+                            <div class="flex items-start justify-between flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold">Flanorx</h3>
+                                    <span class="text-sm text-[#4F7581] font-medium">On-Demand Fuel Delivery</span>
+                                </div>
+                                <span class="text-xs bg-[#DCE8EC] text-[#0F3544] px-3 py-1 rounded-full font-medium">Live</span>
+                            </div>
+                            <p class="body-text text-sm">An on-demand fuel delivery service in Nigeria that brings petrol straight to your home or business, offering fast 30-minute refueling in cities like Port Harcourt, Lagos, and Abuja.</p>
+                            <div class="flex gap-3 pt-1 sm:pt-2">
+                                <a href="https://flanorx.com" target="_blank" class="text-sm font-medium text-[#0F3544] hover:underline">Visit Site →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rezident Homes -->
+                    <div class="card-premium group">
+                        <div class="aspect-[16/10] bg-[#DCE8EC] overflow-hidden relative">
+                            <img src="rezident.jpeg" alt="Rezident Homes — Luxury Real Estate" class="project-img" />
+                            <div class="absolute inset-0 bg-[#0F3544]/0 group-hover:bg-[#0F3544]/20 transition-colors duration-500"></div>
+                        </div>
+                        <div class="p-5 sm:p-6 space-y-2 sm:space-y-3">
+                            <div class="flex items-start justify-between flex-wrap gap-2">
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold">Rezident Homes</h3>
+                                    <span class="text-sm text-[#4F7581] font-medium">Luxury Real Estate</span>
+                                </div>
+                                <span class="text-xs bg-[#DCE8EC] text-[#0F3544] px-3 py-1 rounded-full font-medium">Live</span>
+                            </div>
+                            <p class="body-text text-sm">A premium luxury real estate platform in Nigeria, offering curated properties for both acquisition and rental with a focus on trust, transparency, and white-glove service.</p>
+                            <div class="flex gap-3 pt-1 sm:pt-2">
+                                <a href="https://rezidenthomes.com" target="_blank" class="text-sm font-medium text-[#0F3544] hover:underline">Visit Site →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- SKILLS                                 -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="skills" class="section-padding bg-[#FAFBFC]">
+            <div class="container-custom">
+                <div class="text-center mb-12 sm:mb-16">
+                    <span class="text-[#4F7581] font-medium text-xs sm:text-sm uppercase tracking-[0.2em]">Expertise</span>
+                    <h2 class="heading-lg text-[#1B1B1B] mt-3 sm:mt-4">My Skills</h2>
+                    <p class="body-text max-w-xl mx-auto mt-3 sm:mt-4">
+                        Technologies and tools I work with every day
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-7 gap-6 sm:gap-8">
+
+                    <div class="flex flex-col items-center text-center reveal">
+                        <div class="skill-circle" data-percent="95">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                                <circle class="progress-circle" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                            </svg>
+                            <span class="percentage">95%</span>
+                        </div>
+                        <span class="mt-3 sm:mt-4 font-semibold text-[#1B1B1B] text-sm sm:text-base">HTML</span>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center reveal">
+                        <div class="skill-circle" data-percent="92">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                                <circle class="progress-circle" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                            </svg>
+                            <span class="percentage">92%</span>
+                        </div>
+                        <span class="mt-3 sm:mt-4 font-semibold text-[#1B1B1B] text-sm sm:text-base">CSS</span>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center reveal">
+                        <div class="skill-circle" data-percent="92">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                                <circle class="progress-circle" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                            </svg>
+                            <span class="percentage">92%</span>
+                        </div>
+                        <span class="mt-3 sm:mt-4 font-semibold text-[#1B1B1B] text-sm sm:text-base">React</span>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center reveal">
+                        <div class="skill-circle" data-percent="85">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                                <circle class="progress-circle" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                            </svg>
+                            <span class="percentage">85%</span>
+                        </div>
+                        <span class="mt-3 sm:mt-4 font-semibold text-[#1B1B1B] text-sm sm:text-base">TypeScript</span>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center reveal">
+                        <div class="skill-circle" data-percent="90">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                                <circle class="progress-circle" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                            </svg>
+                            <span class="percentage">90%</span>
+                        </div>
+                        <span class="mt-3 sm:mt-4 font-semibold text-[#1B1B1B] text-sm sm:text-base">Tailwind</span>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center reveal">
+                        <div class="skill-circle" data-percent="80">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                                <circle class="progress-circle" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                            </svg>
+                            <span class="percentage">80%</span>
+                        </div>
+                        <span class="mt-3 sm:mt-4 font-semibold text-[#1B1B1B] text-sm sm:text-base">Figma</span>
+                    </div>
+
+                    <div class="flex flex-col items-center text-center reveal">
+                        <div class="skill-circle" data-percent="75">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="bg-circle" cx="60" cy="60" r="50" />
+                                <circle class="progress-circle" cx="60" cy="60" r="50" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                            </svg>
+                            <span class="percentage">75%</span>
+                        </div>
+                        <span class="mt-3 sm:mt-4 font-semibold text-[#1B1B1B] text-sm sm:text-base">Node.js</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- TESTIMONIALS                           -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="testimonials" class="section-padding relative overflow-hidden" style="background:#0A1620;">
+            <div class="absolute inset-0 pointer-events-none opacity-5">
+                <svg class="w-full h-full" viewBox="0 0 1200 600" preserveAspectRatio="none">
+                    <path d="M0,100 Q400,0 800,100 T1200,50 L1200,600 L0,600 Z" fill="#4F7581" />
+                </svg>
+            </div>
+
+            <div class="container-custom relative z-10">
+                <div class="text-center mb-12 sm:mb-16">
+                    <span class="text-[#4F7581] font-medium text-xs sm:text-sm uppercase tracking-[0.2em]">Testimonials</span>
+                    <h2 class="heading-lg text-white mt-3 sm:mt-4">What People Say</h2>
+                    <p class="text-[#9BB5C0] body-text max-w-xl mx-auto mt-3 sm:mt-4">
+                        Kind words from clients and collaborators
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+                    <div class="testimonial-card">
+                        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#315765] flex items-center justify-center text-white font-bold text-base sm:text-lg">SN</div>
+                            <div>
+                                <div class="text-white font-semibold text-sm sm:text-base">Samuel Njoku</div>
+                                <div class="text-[#9BB5C0] text-xs sm:text-sm">Founder, CurriumX</div>
+                            </div>
+                        </div>
+                        <div class="flex text-[#F59E0B] text-xs sm:text-sm mb-2 sm:mb-3">
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                        </div>
+                        <p class="text-[#DCE8EC] text-sm leading-relaxed">
+                            "Joshua is an exceptional designer and developer. He delivered a stunning website that perfectly captured our brand identity. A true professional."
+                        </p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#315765] flex items-center justify-center text-white font-bold text-base sm:text-lg">TC</div>
+                            <div>
+                                <div class="text-white font-semibold text-sm sm:text-base">Tomiwa Covenant</div>
+                                <div class="text-[#9BB5C0] text-xs sm:text-sm">CEO, Flanorx</div>
+                            </div>
+                        </div>
+                        <div class="flex text-[#F59E0B] text-xs sm:text-sm mb-2 sm:mb-3">
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                        </div>
+                        <p class="text-[#DCE8EC] text-sm leading-relaxed">
+                            "Working with Joshua was a game-changer for our product. His attention to detail and ability to translate complex requirements into beautiful designs is unmatched."
+                        </p>
+                    </div>
+
+                    <div class="testimonial-card sm:col-span-2 lg:col-span-1">
+                        <div class="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#315765] flex items-center justify-center text-white font-bold text-base sm:text-lg">EO</div>
+                            <div>
+                                <div class="text-white font-semibold text-sm sm:text-base">Emmanuel Oniso</div>
+                                <div class="text-[#9BB5C0] text-xs sm:text-sm">Founder, Rezident Homes</div>
+                            </div>
+                        </div>
+                        <div class="flex text-[#F59E0B] text-xs sm:text-sm mb-2 sm:mb-3">
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                            <i data-lucide="star" class="fill-[#F59E0B] text-[#F59E0B]"></i>
+                        </div>
+                        <p class="text-[#DCE8EC] text-sm leading-relaxed">
+                            "Joshua brought our vision to life with a perfect blend of creativity and technical expertise. He's a rare talent who truly cares about the end product."
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- CONTACT                                -->
+        <!-- ════════════════════════════════════════ -->
+        <section id="contact" class="section-padding bg-white">
+            <div class="container-custom">
+                <div class="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
+                    <span class="text-[#4F7581] font-medium text-xs sm:text-sm uppercase tracking-[0.2em]">Contact</span>
+                    <h2 class="heading-lg text-[#1B1B1B] leading-tight">
+                        Have an Amazing Project?<br />
+                        <span style="color:var(--teal);">Let's Build Something Exceptional Together.</span>
+                    </h2>
+
+                    <p class="body-text max-w-lg mx-auto">
+                        I'm currently open to new opportunities and collaborations. Let's create something extraordinary.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-lg mx-auto w-full">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-full border border-[#E5E7EB] bg-[#FAFBFC] text-[#1B1B1B] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#0F3544]/30 focus:border-[#0F3544] transition-all text-sm sm:text-base w-full" />
+                        <button class="btn-primary justify-center whitespace-nowrap">
+                            Send Message
+                            <i data-lucide="send"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-4 sm:gap-6 pt-2 sm:pt-4">
+                        <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FAFBFC] border border-[#E5E7EB] flex items-center justify-center text-[#315765] hover:bg-[#0F3544] hover:text-white hover:border-[#0F3544] transition-all duration-300">
+                            <i data-lucide="github"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FAFBFC] border border-[#E5E7EB] flex items-center justify-center text-[#315765] hover:bg-[#0F3544] hover:text-white hover:border-[#0F3544] transition-all duration-300">
+                            <i data-lucide="linkedin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FAFBFC] border border-[#E5E7EB] flex items-center justify-center text-[#315765] hover:bg-[#0F3544] hover:text-white hover:border-[#0F3544] transition-all duration-300">
+                            <i data-lucide="twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FAFBFC] border border-[#E5E7EB] flex items-center justify-center text-[#315765] hover:bg-[#0F3544] hover:text-white hover:border-[#0F3544] transition-all duration-300">
+                            <i data-lucide="instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FAFBFC] border border-[#E5E7EB] flex items-center justify-center text-[#315765] hover:bg-[#0F3544] hover:text-white hover:border-[#0F3544] transition-all duration-300">
+                            <i data-lucide="behance"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════ -->
+        <!-- FOOTER                                 -->
+        <!-- ════════════════════════════════════════ -->
+        <footer class="bg-[#0A1620] text-white/70 border-t border-white/5">
+            <div class="container-custom py-12 sm:py-16">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+
+                    <div class="space-y-3 sm:space-y-4">
+                        <a href="#" class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="sparkle" class="text-xl sm:text-2xl"></i>
+                            Joshua
+                        </a>
+                        <p class="text-sm text-white/50 max-w-xs">
+                            UI/UX Designer & Frontend Developer crafting beautiful digital experiences.
+                        </p>
+                        <div class="flex gap-3 sm:gap-4 pt-1 sm:pt-2">
+                            <a href="#" class="text-white/40 hover:text-white transition-colors">
+                                <i data-lucide="github"></i>
+                            </a>
+                            <a href="#" class="text-white/40 hover:text-white transition-colors">
+                                <i data-lucide="linkedin"></i>
+                            </a>
+                            <a href="#" class="text-white/40 hover:text-white transition-colors">
+                                <i data-lucide="twitter"></i>
+                            </a>
+                            <a href="#" class="text-white/40 hover:text-white transition-colors">
+                                <i data-lucide="instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Navigation</h4>
+                        <ul class="space-y-2 sm:space-y-3 text-sm">
+                            <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                            <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                            <li><a href="#experience" class="hover:text-white transition-colors">Experience</a></li>
+                            <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+                            <li><a href="#portfolio" class="hover:text-white transition-colors">Portfolio</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Contact</h4>
+                        <ul class="space-y-2 sm:space-y-3 text-sm">
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="mail" class="text-[#4F7581] flex-shrink-0"></i>
+                                <a href="mailto:hello@joshua.dev" class="hover:text-white transition-colors break-all">hello@joshua.dev</a>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="phone" class="text-[#4F7581] flex-shrink-0"></i>
+                                <a href="tel:+1234567890" class="hover:text-white transition-colors">+1 (234) 567-890</a>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="map-pin" class="text-[#4F7581] flex-shrink-0"></i>
+                                <span>Nigeria · Remote</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Stay in Touch</h4>
+                        <p class="text-sm text-white/50 mb-3 sm:mb-4">Get updates on new projects and articles.</p>
+                        <div class="flex flex-col sm:flex-row">
+                            <input type="email" placeholder="Email" class="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-l-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 focus:outline-none focus:border-[#4F7581] text-sm w-full" />
+                            <button class="px-4 sm:px-5 py-2 sm:py-3 rounded-r-full bg-[#0F3544] text-white text-sm font-medium hover:bg-[#0A2A36] transition-colors">
+                                <i data-lucide="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="border-t border-white/5 mt-10 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/40">
+                    <span>© 2026 Joshua. All rights reserved.</span>
+                    <div class="flex gap-4 sm:gap-6">
+                        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ─── SCRIPTS ─── -->
+    <script>
+        // ─── LUCIDE ICONS ───
+        lucide.createIcons();
+
+        // ─── NAVBAR SCROLL ───
+        const navbar = document.getElementById('navbar');
+        const scrollProgress = document.getElementById('scrollProgress');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            if (scrollY > 400) {
+                scrollProgress.classList.add('visible');
+            } else {
+                scrollProgress.classList.remove('visible');
+            }
+        });
+
+        // ─── MOBILE NAV ───
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileLinks = mobileNav.querySelectorAll('a');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('open');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('open');
+            });
+        });
+
+        // ─── NAV LINKS ACTIVE ───
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveLink() {
+            let current = '';
+            const scrollPos = window.scrollY + 120;
+
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                if (scrollPos >= top && scrollPos < top + height) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+        window.addEventListener('load', updateActiveLink);
+
+        // ─── REVEAL ON SCROLL ───
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ─── TIMELINE PROGRESS ───
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const line = entry.target.querySelector('.line-progress');
+                    if (line) {
+                        line.classList.add('visible');
+                    }
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        timelineItems.forEach(item => timelineObserver.observe(item));
+
+        // ─── SKILL CIRCLES ───
+        const skillCircles = document.querySelectorAll('.skill-circle');
+
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const circle = entry.target;
+                    const percent = parseInt(circle.dataset.percent);
+                    const radius = 50;
+                    const circumference = 2 * Math.PI * radius;
+                    const offset = circumference - (percent / 100) * circumference;
+                    const progressCircle = circle.querySelector('.progress-circle');
+                    if (progressCircle) {
+                        progressCircle.style.strokeDashoffset = offset;
+                    }
+                }
+            });
+        }, {
+            threshold: 0.4
+        });
+
+        skillCircles.forEach(circle => skillObserver.observe(circle));
+
+        // ─── CUSTOM CURSOR ───
+        const cursor = document.getElementById('cursor');
+        if (cursor) {
+            let mouseX = 0,
+                mouseY = 0;
+            let cursorX = 0,
+                cursorY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.12;
+                cursorY += (mouseY - cursorY) * 0.12;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+
+            animateCursor();
+
+            const interactive = document.querySelectorAll('a, button, .card-premium, .testimonial-card');
+            interactive.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+        }
+
+        // ─── SMOOTH SCROLL ───
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        console.log('✦ Joshua — Premium Portfolio (Lucide Icons) ✦');
+    </script>
+
+</body>
+</html>
